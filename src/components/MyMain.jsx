@@ -18,10 +18,10 @@ const allCategoryObj = {
 };
 
 function MyMain() {
-  const [selectedGenre, setSelectedGenre] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState(null);
 
   const handleGenreButton = (categoryName) => {
-    setSelectedGenre(categoryName);
+    setSelectedCategory(categoryName);
   };
 
   return (
@@ -32,8 +32,8 @@ function MyMain() {
       </div>
       <Container>
         <Row className="gy-3 mb-5">
-          {allCategoryObj[selectedGenre] ? (
-            allCategoryObj[selectedGenre].map((book, index) => (
+          {allCategoryObj[selectedCategory] ? (
+            allCategoryObj[selectedCategory].map((book, index) => (
               <Col xs={6} md={4} xl={3} xxl={2} key={`cardBook-${index}`}>
                 <CardComp book={book} />
               </Col>
