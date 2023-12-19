@@ -1,55 +1,48 @@
 import React, { useState } from "react";
 import SubtitleComp from "./SubtitleComp";
-import { Col, Row } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import CardComp from "./CardComp";
-import Genre from "./GenreComp";
+import CategoryComp from "./CategoryComp";
 import fantasy from "../data/fantasy.json";
 import history from "../data/history.json";
 import horror from "../data/horror.json";
 import romance from "../data/romance.json";
 import scifi from "../data/scifi.json";
 
-function MyMain() {
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const [books, setBooks] = useState([]);
+const allCategoryObj = {
+  fantasy: fantasy,
+  history: history,
+  horror: horror,
+  romance: romance,
+  scifi: scifi,
+};
 
-  const handleSelectCategory = (category) => {
-    setSelectedCategory(category);
-    // Carica i dati del genere selezionato
-    switch (category) {
-      case "fantasy":
-        setBooks(fantasy);
-        break;
-      case "history":
-        setBooks(history);
-        break;
-      case "horror":
-        setBooks(horror);
-        break;
-      case "romance":
-        setBooks(romance);
-        break;
-      case "scifi":
-        setBooks(scifi);
-        break;
-      default:
-        setBooks([]);
-    }
+function MyMain() {
+  const [selectedGenre, setSelectedGenre] = useState(null);
+
+  const handleGenreButton = (categoryName) => {
+    setSelectedGenre(categoryName);
   };
 
   return (
     <>
       <SubtitleComp />
-      <div className=" text-center m-5">
-        <Genre onSelectGenre={handleSelectCategory} />
+      <div className="text-center m-5">
+        <CategoryComp callbackFunction={handleGenreButton} />
       </div>
-      <Row className="gy-3 mb-5">
-        {books.map((book, index) => (
-          <Col xs={6} md={3} lg={2} key={`cardBook-${index}`}>
-            <CardComp book={book} />
-          </Col>
-        ))}
-      </Row>
+      <Container>
+        <Row className="gy-3 mb-5">
+          {allCategoryObj[selectedGenre] ? (
+            allCategoryObj[selectedGenre].map((book, index) => (
+              <Col xs={6} md={4} xl={3} xxl={2} key={`cardBook-${index}`}>
+                <CardComp book={book} />
+              </Col>
+            ))
+          ) : (
+            <p className="text-center">Nessun libro disponibile per questo genere.</p>
+          )}
+        </Row>
+      </Container>
     </>
   );
 }
