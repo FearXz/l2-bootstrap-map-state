@@ -9,7 +9,7 @@ import horror from "../data/horror.json";
 import romance from "../data/romance.json";
 import scifi from "../data/scifi.json";
 
-const allCategoryObj = {
+const allCategories = {
   fantasy: fantasy,
   history: history,
   horror: horror,
@@ -19,9 +19,18 @@ const allCategoryObj = {
 
 function MyMain() {
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const [library, setLibrary] = useState(allCategories);
 
   const handleGenreButton = (categoryName) => {
     setSelectedCategory(categoryName);
+    console.log(categoryName);
+  };
+
+  const handleDeleteCard = (asin) => {
+    let updatedLibrary = { ...library };
+    updatedLibrary[selectedCategory] = library[selectedCategory].filter((book) => book.asin !== asin);
+    setLibrary(updatedLibrary);
+    console.log(updatedLibrary);
   };
 
   return (
@@ -32,10 +41,10 @@ function MyMain() {
       </div>
       <Container>
         <Row className="gy-3 mb-5">
-          {allCategoryObj[selectedCategory] ? (
-            allCategoryObj[selectedCategory].map((book, index) => (
+          {library[selectedCategory] ? (
+            library[selectedCategory].map((book, index) => (
               <Col xs={6} md={4} xl={3} xxl={2} key={`cardBook-${index}`}>
-                <CardComp book={book} />
+                <CardComp book={book} callbackFunction={handleDeleteCard} />
               </Col>
             ))
           ) : (

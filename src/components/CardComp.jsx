@@ -1,5 +1,5 @@
 import React from "react";
-import Card from "react-bootstrap/Card";
+import { Card, Button } from "react-bootstrap";
 
 function CardComp(props) {
   return (
@@ -10,6 +10,9 @@ function CardComp(props) {
           {props.book.title}
         </Card.Title>
         <Card.Text></Card.Text>
+        <Button variant="danger" onClick={() => props.callbackFunction(props.book.asin)}>
+          Delete
+        </Button>
       </Card.Body>
     </Card>
   );
