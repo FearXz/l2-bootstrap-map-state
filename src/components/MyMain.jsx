@@ -21,7 +21,7 @@ function MyMain() {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [library, setLibrary] = useState(allCategories);
 
-  const handleGenreButton = (categoryName) => {
+  const handleCategoryButton = (categoryName) => {
     setSelectedCategory(categoryName);
     console.log(categoryName);
   };
@@ -37,7 +37,7 @@ function MyMain() {
     <>
       <SubtitleComp />
       <div className="text-center m-5">
-        <CategoryComp callbackFunction={handleGenreButton} />
+        <CategoryComp callbackFunction={handleCategoryButton} />
       </div>
       <Container>
         <Row className="gy-3 mb-5">
